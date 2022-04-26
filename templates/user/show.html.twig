@@ -25,12 +25,9 @@
 				<td>{{ user.number }}</td>
 			</tr>
 			<tr>
-				<th>Username</th>
-				<td>{{ user.username }}</td>
-			</tr>
-			<tr>
 				<th>Role</th>
-				<td>{{ user.role }}</td>
+				<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+
 			</tr>
 			<tr>
 				<th>Birthday</th>

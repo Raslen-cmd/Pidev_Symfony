@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+	<div class="row mt-4">
+		<div class="col-3"></div>
+		<div class="col-6">
+			{% for msg in app.flashes('error') %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					{{ msg }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			{% endfor %}
+			<h2>Create New Account</h2>
+			{% form_theme form 'bootstrap_4_layout.html.twig' %}
+			{{ form_start(form)}}
+			{{ form_widget(form) }}
+			<button class="btn btn-sm btn-success">{{ button_label|default('Save') }}</button>
+			{{ form_end(form) }}
+		</div>
+		<div class="col-3"></div>
+	</div>
+{% endblock %}

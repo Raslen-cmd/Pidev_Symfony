@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password
+{% endblock %}
+
+{% block body %}
+	<div class="row mt-4">
+		<div class="col-3"></div>
+		<div class="col-6">
+
+			<h2>Reset your password</h2>
+			{% form_theme resetForm 'bootstrap_4_layout.html.twig' %}
+			{{ form_start(resetForm) }}
+			{{ form_row(resetForm.plainPassword) }}
+			<button class="btn btn-primary">Reset password</button>
+			{{ form_end(resetForm) }}
+		</div>
+		<div class="col-3"></div>
+	</div>
+{% endblock %}
