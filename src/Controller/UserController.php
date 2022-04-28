@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -82,14 +83,22 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_user_delete", methods={"POST"})
+     * @Route("/block/{id}", name="app_user_block")
      */
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    public function block(Request $request, User $user, EntityManagerInterface $em): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($user);
-        }
+        $user->setBlocked(true);
+        $em->flush();
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
 
+    /**
+     * @Route("/unblock/{id}", name="app_user_unblock")
+     */
+    public function debloquer(User $user, EntityManagerInterface $em): Response
+    {
+        $user->setBlocked(false);
+        $em->flush();
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }

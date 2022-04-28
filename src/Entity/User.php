@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 
 
 /**
@@ -90,6 +91,16 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $last_updated_user;
+
+    /**
+     * @Recaptcha\IsTrue
+     */
+    public $recaptcha;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default" : 0})
+     */
+    private $blocked;
 
     public function getId(): ?int
     {
@@ -242,5 +253,17 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getBlocked(): ?bool
+    {
+        return $this->blocked;
+    }
+
+    public function setBlocked(?bool $blocked): self
+    {
+        $this->blocked = $blocked;
+
+        return $this;
     }
 }

@@ -14,6 +14,7 @@
 				<th>Number</th>
 				<th>Role</th>
 				<th>Birthday</th>
+				<th>Profile</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -27,9 +28,19 @@
 					<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
 					<td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
 					<td>
-						<a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-sm btn-primary">show</a>
-						<a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-sm btn-warning">edit</a>
+						<img src="{{ qr_code_url('http://192.168.1.9:8000/profile/' ~ user.id) }}" width="75px"/>
 
+
+					</td>
+					<td>
+						<a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-sm btn-primary">Show</a>
+						<a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-sm btn-warning">Edit</a>
+						{% if user.blocked %}
+							<a href="{{ path('app_user_unblock', {'id': user.id}) }}" class="btn btn-sm btn-success">Unblock</a>
+
+						{% else %}
+							<a href="{{ path('app_user_block', {'id': user.id}) }}" class="btn btn-sm btn-danger">Block</a>
+						{% endif %}
 					</td>
 				</tr>
 			{% else %}

@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ResetPasswordRequestRepository;
 use Doctrine\ORM\Mapping as ORM;
-use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
+use App\Repository\ResetPasswordRequestRepository;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestTrait;
+use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 
 /**
  * @ORM\Entity(repositoryClass=ResetPasswordRequestRepository::class)
@@ -26,6 +27,11 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @Recaptcha\IsTrue
+     */
+    public $recaptcha;
 
     public function __construct(object $user, \DateTimeInterface $expiresAt, string $selector, string $hashedToken)
     {

@@ -73,6 +73,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new UsernameNotFoundException('Email could not be found.');
         }
 
+        if ($user->getBlocked()) {
+            throw new UsernameNotFoundException('This account is blocked.');
+        }
+
         return $user;
     }
 
@@ -94,11 +98,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-        //check if admin redirect to backoffice else redirect to frontoffice
-        return new RedirectResponse($this->urlGenerator->generate('back'));
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        $roles = $token->getRoleNames();
+        $isAdmin = false;
+        foreach ($roles as $role) {
+            if ($role == 'ROLE_ADMIN') $isAdmin = true;
+        }
+        //check if admin redirect to backoffice else redirect to frontoffice
+        if ($isAdmin)
+            return new RedirectResponse($this->urlGenerator->generate('back'));
+        else
+            return new RedirectResponse($this->urlGenerator->generate('front'));
     }
 
     protected function getLoginUrl()
