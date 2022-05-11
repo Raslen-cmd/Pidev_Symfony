@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
@@ -23,6 +24,11 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotNull
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -34,11 +40,17 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 6,
+     *      exactMessage = "Your password must at least have {{ limit }} caracters"
+     * )
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotNull
      * @Assert\Length(
      *      min = 2,
      *      max = 26,
@@ -49,6 +61,7 @@ class User implements UserInterface
     private $first_name;
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotNull
      * @Assert\Length(
      *      min = 2,
      *      max = 26,
@@ -60,15 +73,8 @@ class User implements UserInterface
     private $last_name;
 
     /**
-     * @ORM\Column(type="string")
-     * @Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
-     * )
-     */
-
-    /**
      * @ORM\Column(type="integer")
+     * @Assert\NotNull
      *  @Assert\Length(
      *
      *      max = 8,
@@ -80,6 +86,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotNull
      */
     private $birthday;
     /**

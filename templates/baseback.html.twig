@@ -38,11 +38,11 @@
 		href="{{asset('back-office/assets/css/style.css')}}" rel="stylesheet">
 
 	<!-- =======================================================
-							  * Template Name: NiceAdmin - v2.2.2
-							  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-							  * Author: BootstrapMade.com
-							  * License: https://bootstrapmade.com/license/
-							  ======================================================== -->
+																			  * Template Name: NiceAdmin - v2.2.2
+																			  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+																			  * Author: BootstrapMade.com
+																			  * License: https://bootstrapmade.com/license/
+																			  ======================================================== -->
 	</head>
 
 	<body>
@@ -249,7 +249,8 @@
 							</li>
 
 							<li>
-								<a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+								<a class="dropdown-item d-flex align-items-center" href="{{ path('app_profile') }}">
+
 									<i class="bi bi-person"></i>
 									<span>My Profile</span>
 								</a>
@@ -302,13 +303,20 @@
 		<aside id="sidebar" class="sidebar">
 
 			<ul class="sidebar-nav" id="sidebar-nav">
-
 				<li class="nav-item">
-					<a class="nav-link " href="index.html">
+					<a class="nav-link " href="{{ path('back') }}">
 						<i class="bi bi-grid"></i>
 						<span>Dashboard</span>
 					</a>
 				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_user_index') }}">
+						<i class="bi bi-person"></i>
+						<span>User Management</span>
+					</a>
+				</li>
+
 				<!-- End Dashboard Nav -->
 
 				<li class="nav-item">
