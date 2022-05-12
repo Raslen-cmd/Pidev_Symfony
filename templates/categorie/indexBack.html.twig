@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ARTISANET!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+{% for message in app.flashes('info') %}
+<div classe ="alert alert.success ">
+{{message}}
+</div>
+{% endfor %}
+
+<div class="row" style="display: flex;align-items: center;justify-content: center;margin-top: 150px;">
+
+    <div class="col-lg-6">
+
+        <div class="card">
+            <div class="card-body">
+                <a href="{{ path('add_categorie') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
+                <h1 class="card-title">Liste des categories</h1>
+
+            <a class="btn btn-success" href="{{ path('add_categorie') }}">Ajouter</a>
+
+
+    <table class="table table-striped">
+   
+        
+        <thead>
+            <th> Nom categorie </th>
+            <th> Modifier </th>
+            <th> Supprimer </th>
+
+        </thead>
+        <tbody>
+        {% for cat in c %} 
+        
+        <tr>
+           
+            <td> {{cat.nomCat}}  </td>
+           <td>
+            <a class="btn btn-success" href="{{ path('update_categorie',{'id':cat.idCat}) }}">Modifier</a>
+            </td>
+            <td>
+            <a class="btn btn-danger" href="{{ path('delete_categorie',{'id':cat.idCat}) }}">Supprimer</a>
+            </td>
+
+        </tr>  
+        {% endfor %}
+    </tbody>     
+    </table>   
+
+    </div>
+</div>
+    </div>
+</div>
+{% endblock %}

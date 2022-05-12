@@ -1,63 +1,84 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-front.html.twig' %}
 
-{% block title %}Hello ARTISANET!{% endblock %}
+{% block stylesheet %}
+ <script src="{{asset('front-office/assets/js/scripts.js')}}"></script>       
 
+ <style>
+        .grid{ 
+            display :grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+    </style> 
+    {% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
+<!-- Section-->
+        <section class="py-5">
 
-<div class="row" style="display: flex;align-items: center;justify-content: center;margin-top: 150px;">
+        <!-- Partie filtrage----------->
+<div class="flex-w flex-c-m m-tb-10">
+	<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+    <div class="row">
+    <div class="col-md-9">
+    {% include 'produit/_filter.html.twig' with {form: form }only %}
 
-    <div class="col-lg-6">
-
-        <div class="card">
-            <div class="card-body">
-                <a href="{{ path('add_produit') }}"><i class="ri-arrow-left-circle-fill" style="font-size: 50px;"></i></a>
-                <h1 class="card-title">Liste des produits</h1>
-
-            <a class="btn btn-success" href="{{ path('add_produit') }}">Ajouter</a>
-
-
-    <table class="table table-striped">
-   
-        
-        <thead>
-            <th> Numero </th>
-            <th> Nom produit </th>
-            <th> prix </th>
-            <th> Description </th>
-            <th> Stock </th>
-            <th> Icone </th>
-            <th> Modifier </th>
-            <th> Supprimer </th>
-
-        </thead>
-        <tbody>
-        {% for prod in p %}  
-        <tr>
-            <td>  </td>
-            <td> {{prod.nomPdt}} </td>
-            <td> {{prod.prix}} </td>
-            <td> {{prod.description}} </td>
-            <td> {{prod.stock}} </td>
-            <td> {{prod.icone}} </td>
-            <td>
-            <a class="btn btn-success" href="{{ path('update_produit',{'id':prod.idPdt}) }}">Modifier</a>
-            </td>
-            <td>
-            <a class="btn btn-danger" href="{{ path('delete_produit',{'id':prod.idPdt}) }}">Supprimer</a>
-            </td>
-
-        </tr>  
-        {% endfor %}
-    </tbody>     
-    </table>   
-
+    </div> 
     </div>
 </div>
-    </div>
-</div>
+<!-- Afficher donnees----------->
+
+            <div class="container px-4 px-lg-5 mt-5">
+                 
+              <div class="row  gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for prod in p %}
+
+                    <div class="col mb-2">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
+                            </div>
+                            <!-- Product image-->
+                            <img class="card-img-top"  
+                            src="{{ asset('/uploads/' ~ prod.icone) }}"
+             alt="" width="300" height="150">
+                            
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{prod.nomPdt}} </h5>
+                                    <!-- Product reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <i class="bi-star-fill" data-value="1" ></i>
+                                        <i class="bi-star-fill" data-value="2"></i>
+                                        <i class="bi-star-fill" data-value="3"></i>
+                                        <i class="bi-star-fill" data-value="4"></i>
+                                        <i class="bi-star-fill" data-value="5"></i>
+                                   <input type="hidden" name="note" id="note" value="0">
+
+                                    </div>
+                                    <!-- Product price-->
+                                    <!--<span class="text-muted text-decoration-line-through">${{prod.prix}} </span>-->
+                                  <div class="card-title text-primary" style="font-weight: bold;
+                                  font-size:1.2rem;">
+                                   ${{prod.prix | number_format(0,',', ' ')}} </div> 
+                                </div>
+                            </div>
+                       <div class="text-center"><a href="{{path('detail_produit',{'id':prod.idPdt})}}">voir</a></div>
+
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ajouter au panier</a></div>
+                            </div>
+                        </div>
+
+                   </div>
+                    {% endfor %}
+             </div>    
+            
+            </div>  
+            <div>{{knp_pagination_render(p)}} </div> 
+        </section>
+
 {% endblock %}

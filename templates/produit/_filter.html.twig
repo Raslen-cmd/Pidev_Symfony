@@ -1,0 +1,27 @@
+{{form_start(form,{attr: {class:'filter'}}) }}
+<div class="row">
+
+{{form_row(form.q)}}
+<i class="zmdi zmdi-search"></i>
+<i class="icon-close-search cl2 m-r-6 fs-15 trans-06 zmdi zmdi-close dis-none"></i>
+</div>
+
+
+<div class="menu-Website">
+<ul class="main-menu">
+<li class="active-menu">
+
+<h4>Filter</h6>
+<ul class="sub-menu">
+<li>{{form_row(form.categories)}}
+</li>
+</ul>
+</li>
+</ul>
+
+{{form_row(form.min)}} {{form_row(form.max)}}
+</div>
+<button type="submit" class="btn btn-primary "> Filtrer</button>
+
+
+{{form_end(form)}}

@@ -1,0 +1,48 @@
+<div class= "card">
+<img src="{{ asset('/uploads/' ~ prod.icone) }}" alt="" class="card-img-top">
+<div class="card-body">
+<h5 class-"card-title">{{prod.nomPdt}}</h5>
+<div class-"card-title text-primary" style="...">
+{{ prod.prix | number_format(0,',','')}}$
+
+
+</div>
+<p class="text text-muted"›{{prod.description}}</p>
+<div>
+
+</div>
+
+<!-----------------------
+ <div class="col mb-2">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
+                            </div>
+                            <!-- Product image-->
+                            <img class="card-img-top"  
+                            src="{{ asset('/uploads/' ~ prod.icone) }}"
+             alt="" width="300" height="150">
+                            
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{prod.nomPdt}} </h5>
+                                    <!-- Product reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Product price-->
+                                    <!--<span class="text-muted text-decoration-line-through">${{prod.prix}} </span>-->
+                                  <div class="card-title text-primary" style="font-weight: bold;
+                                  font-size:1.2rem;">
+                                   ${{prod.prix | number_format(0,',', ' ')}} </div> 
+                                </div>
+                            </div>
+                       <div class="text-center"><a href="{{path('detail_produit',{'id':prod.idPdt})}}">voir</a></div>
+
+ --------------------------->
